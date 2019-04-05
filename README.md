@@ -21,7 +21,13 @@ git clone https://github.com/shanghungshih/monitor2plot.git
 ```python
 python3 monitor2plot.py  -c "ls" -i 0.0001
 ```
+![demo1](img/monitor2plot_ls.png)
 ### python program
 ```python
 python3 monitor2plot.py  -c "python3 test.py"
 ```
+![demo1](img/monitor2plot_dark.png)
+```python
+python3 monitor2plot.py  -c "python3 test.py -t light"
+```
+![demo1](img/monitor2plot_light.png)
