@@ -17,20 +17,20 @@ git clone https://github.com/shanghungshih/monitor2plot.git
 
 ## Quick start
 - Run the program with your command
-##### ex. ls
+#### ex. ls
 ```python
 python3 monitor2plot.py  -c "ls" -i 0.0001
 ```
 <img align="center" src="img/monitor2plot_ls.png" height="400">
 
 
-##### ex. python program
+#### ex. python program
 ```python
 python3 monitor2plot.py  -c "python3 test.py"
 ```
 <img align="center" src="img/monitor2plot_dark.png" height="400">
 
-##### ex. python program with light theme
+#### ex. python program with light theme
 ```python
 python3 monitor2plot.py  -c "python3 test.py -t light"
 ```
