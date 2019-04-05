@@ -15,6 +15,9 @@ git clone https://github.com/shanghungshih/monitor2plot.git
 - `--interval` :  time interval for accessing CPU time (default: 0.01 sec)
 - `--theme` : theme for the plot: dark/light (default: dark)
 
+## Notes
+- if the job takes a long time to run or the plot is too steep, you can specify a greater interval time, on the contrary, if it takes extremely short time, please specify a smaller interval time.
+
 ## Quick start
 - Run the program with your command
 #### ex. ls
