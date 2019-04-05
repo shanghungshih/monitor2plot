@@ -99,11 +99,9 @@ def plot(pid_id, cmd, interval, period, records, theme, output):
     ax2.set_ylabel(right_label)
     plt.savefig(output)
 
-def monitor(cmd, theme, interval, pid_id, output):
-    if pid_id is None:
-        p = subprocess.Popen(cmd, shell=True)
-
-    pid_id = p.pid if pid_id is None else pid_id
+def monitor(cmd, theme, interval, output):
+    p = subprocess.Popen(cmd, shell=True)
+    pid_id = p.pid
     records = []
     while p.poll() is None:
         values = getInfo(p, pid_id=pid_id, interval=interval)
@@ -122,32 +120,29 @@ def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=dedent("""\
     Testing environment: Python 3
     Quick start:
-    1. Run the program with your command (e.g. ls)
-        python3 monitor2plot.py -c "ls"
+    1. Run the program with your command
+         a. python3 monitor2plot.py  -c "ls" -i 0.0001
+         b. python3 monitor2plot.py  -c "python3 test.py"
     * Notes: if the job takes a long time to run, you can specify a greater interval time
     """))
     optional = parser._action_groups.pop()
     required = parser.add_argument_group('required arguments')
     required.add_argument('-c', '--cmd', type=str, help='the command you would like to monitor')
     optional.add_argument('-o', '--output', type=str, default=os.path.join(os.getcwd(), "monitor2plot.png"), help='output plot name (default: $PWD/monitor2plot.png)')
-    optional.add_argument('-p', '--pid', type=int, default=None, help='PID id to monitor (default: None)')
     optional.add_argument('-i', '--interval', type=float, default=0.01, help='time interval for accessing CPU time (default: 0.01 sec)')
     optional.add_argument('-t', '--theme', type=str, default="dark", help='theme for the plot: dark/light (default: dark)')
     optional.add_argument('-V', '--version', action='version', version='%(prog)s ' + __version__)
     parser._action_groups.append(optional)
     args = parser.parse_args()
 
-    if args.cmd is None and args.pid is None:
+    if args.cmd is None:
         parser.print_help()
     else:
-        if args.pid is None:
-            logger_stderr.info('cmd: [%s]' % (args.cmd))
-        else:
-            logger_stderr.info('PID id: [%s]' % (args.pid))
+        logger_stderr.info('cmd: [%s]' % (args.cmd))
         logger_stderr.info('theme: [%s]' % (args.theme))
         logger_stderr.info('interval: [%s]' % (args.interval))
         logger_stderr.info('output: [%s]' % (args.output))
-        monitor(cmd=args.cmd, theme=args.theme, interval=args.interval, pid_id=args.pid, output=args.output)
+        monitor(cmd=args.cmd, theme=args.theme, interval=args.interval, output=args.output)
 
 
 if __name__ == '__main__':
